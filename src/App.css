@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+.my-table-class table, thead, tr, th, td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

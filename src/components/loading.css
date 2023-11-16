@@ -1,3 +1,37 @@
+.my-table-class p{
+  font-size: x-large;
+  font-weight: bolder;
+}
+.my-table-class table{
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+.my-table-class table thead {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.my-table-class table thead tr {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.my-table-class table thead tr th {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.my-table-class table tbody {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.my-table-class table tbody tr {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.my-table-class table tbody tr td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;

@@ -1,7 +1,7 @@
 function Title() {
     return (
         <div>
-            <h1>PTT Search Engine</h1>
+            <h1>社群聲量分析</h1>
         </div>
     )
 }
