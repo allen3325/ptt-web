@@ -25,7 +25,7 @@ function MarkdownBlocks() {
 
   function submit() {
     console.log("Keyword:", keyword);
-    let url = "http://140.120.13.250:11253/analyze/" + keyword + ("?tag=%E6%96%B0%E8%81%9E&K=5&size=10000&start=" + startDate.getTime().toString().slice(0, -3) + "&end=" + endDate.getTime().toString().slice(0, -3))
+    let url = "http://140.120.182.177:11251/analyze/" + keyword + ("?tag=%E6%96%B0%E8%81%9E&K=5&size=10000&start=" + startDate.getTime().toString().slice(0, -3) + "&end=" + endDate.getTime().toString().slice(0, -3))
     setMarkdown("loading");
     // console.log(url);
     // console.log(startDate.getTime().toString().slice(0, -3));
