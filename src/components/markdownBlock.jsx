@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {micromark} from 'micromark'
 import {gfmTable, gfmTableHtml} from 'micromark-extension-gfm-table'
 import "./loading.css";
+import { v1 as uuidv1 } from 'uuid';
 
 function MarkdownBlocks() {
   const [keyword, setKeyword] = useState("");
@@ -23,22 +24,59 @@ function MarkdownBlocks() {
     setKeyword(e.target.value);
   };
 
+  // Count for delay request
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // Polling response from GPT's report
+  async function pollingData(url) {
+    console.log("in pollingData.")
+    try {
+      const response = await axios.get(url);
+      console.log('Response:', response.status, response.data);
+      return response;
+    } catch (error) {
+      // If received 404. Retrying in 10 seconds
+      if (error.response && error.response.status === 404) {
+        console.log('Received 404. Retrying in 10 seconds...');
+        await delay(10000);
+        return pollingData(url);
+      } else {
+        // Catch other error
+        console.error('Error:', error);
+        setMarkdown("# 發生錯誤")
+        throw error;
+      }
+    }
+  }
+
+
   function submit() {
-    console.log("Keyword:", keyword);
-    let url = "http://140.120.182.177:11251/analyze/" + keyword + ("?tag=%E6%96%B0%E8%81%9E&K=5&size=10000&start=" + startDate.getTime().toString().slice(0, -3) + "&end=" + endDate.getTime().toString().slice(0, -3))
+    const uuidOfSession = uuidv1();
+    console.log("Keyword is :", keyword);
+    console.log("UUID is :", uuidOfSession);
+    let url = "http://127.0.0.1:8000/analyze/" + keyword + "?uuidOfSession=" + uuidOfSession + "&tag=%E6%96%B0%E8%81%9E&K=5&size=10000&start=" + startDate.getTime().toString().slice(0, -3) + "&end=" + endDate.getTime().toString().slice(0, -3)
     setMarkdown("loading");
-    // console.log(url);
+    // console.log("url is :", url);
     // console.log(startDate.getTime().toString().slice(0, -3));
     // console.log(endDate.getTime().toString().slice(0, -3));
-    axios
-      .get(url)
-      .then((res) => {
-        setMarkdown(res.data);
-      })
-      .catch((err) => {
-        console.log("error: ", err);
-        setMarkdown("# 發生錯誤")
-      });
+
+    // Don't wait response. Use polling.
+    axios.post(url)
+    console.log("Wait for 60 seconds.")
+    setTimeout(() => {
+      pollingData('http://127.0.0.1:8000/check/' + uuidOfSession)
+        .then(result => {
+          console.log("Get response by ", uuidOfSession);
+          setMarkdown(result.data);
+        })
+        .catch(err => {
+          console.log("error: ", err);
+          setMarkdown("# 發生錯誤")
+        });
+    }, 60000);
+
   }
 
   return (
