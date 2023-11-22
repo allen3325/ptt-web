@@ -32,6 +32,13 @@
   border-collapse: collapse;
   border: 1px solid black;
 }
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* 這確保容器占據整個視窗高度，可根據需要調整 */
+  flex-direction: column;
+}
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -40,6 +47,11 @@
   height: 120px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
+}
+.YT{
+  size: 2rem;
+  max-width:10%;
+  max-height:10%;
 }
 
 /* Safari */
