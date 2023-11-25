@@ -53,6 +53,11 @@
   max-width:10%;
   max-height:10%;
 }
+.YTimg{
+  size: 1rem;
+  max-width:50%;
+  max-height:50%;
+}
 
 /* Safari */
 @-webkit-keyframes spin {
